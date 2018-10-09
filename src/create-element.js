@@ -1,9 +1,4 @@
-var isArray = (function () {
-    if(Array.isArray){return Array.isArray;}
-    return function (arg) {
-        return Object.prototype.toString.call(arg) === '[object Array]';
-    }
-})();
+var util = require('./util');
 
 function appendChildren(parent, children) {
 
@@ -11,7 +6,7 @@ function appendChildren(parent, children) {
         return parent;
     }
 
-    if(!isArray(children)){
+    if(!util.isArray(children)){
         parent.appendChild(document.createTextNode(children));
         return parent;
     }
@@ -62,6 +57,24 @@ function props(dom, node) {
 
     if(node.title) {
         dom.setAttribute('title', node.title);
+    }
+
+
+    var position = node.position;
+
+    if(position){
+        dom.setAttribute('data-line', position.start.line);
+        // dom.setAttribute('data-start-line', position.start.line);
+        // dom.setAttribute('data-end-line', position.end.line);
+    }
+
+    // debugger
+    // if(node.value) {
+    //     dom.setAttribute('id', hash(node.value));
+    // }
+
+    if(node.hash) {
+        dom.setAttribute('data-id', node.hash);
     }
 
 }
