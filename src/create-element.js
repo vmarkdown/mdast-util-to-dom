@@ -48,9 +48,16 @@ function props(dom, node) {
     //     dom.setAttribute('align', node.align);
     // }
 
-    if(node.url) {
-        dom.setAttribute('target', '_blank');
-        dom.setAttribute('href', node.url);
+    if(node.type === "image") {
+        if(node.url) {
+            dom.setAttribute('src', node.url);
+        }
+    }
+    else if(node.type === "link") {
+        if(node.url) {
+            dom.setAttribute('target', '_blank');
+            dom.setAttribute('href', node.url);
+        }
     }
 
     if(node.title) {

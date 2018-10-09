@@ -160,7 +160,7 @@ module.exports = {
         //     }
         // }));
 
-        return h('img', node, children);
+        return h('img', node);
 
     },
 
