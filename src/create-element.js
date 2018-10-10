@@ -60,13 +60,7 @@ function props(dom, node) {
     }
 
 
-    var position = node.position;
 
-    if(position){
-        dom.setAttribute('data-line', position.start.line);
-        // dom.setAttribute('data-start-line', position.start.line);
-        // dom.setAttribute('data-end-line', position.end.line);
-    }
 
     // debugger
     // if(node.value) {
@@ -74,7 +68,23 @@ function props(dom, node) {
     // }
 
     if(node.hash) {
-        dom.setAttribute('data-id', node.hash);
+        dom.setAttribute('data-hash', node.hash);
+    }
+
+
+
+    if(node.parent && node.parent.type==='root') {
+
+        var position = node.position;
+
+        if(position){
+            // debugger
+            dom.setAttribute('data-line', position.start.line);
+            // dom.setAttribute('data-start-line', position.start.line);
+            // dom.setAttribute('data-end-line', position.end.line);
+        }
+
+
     }
 
 }
