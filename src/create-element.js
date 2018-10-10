@@ -73,19 +73,19 @@ function props(dom, node) {
 
 
 
-    if(node.parent && node.parent.type==='root') {
-
-        var position = node.position;
-
-        if(position){
-            // debugger
-            dom.setAttribute('data-line', position.start.line);
-            // dom.setAttribute('data-start-line', position.start.line);
-            // dom.setAttribute('data-end-line', position.end.line);
-        }
-
-
-    }
+    // if(node.parent && node.parent.type==='root') {
+    //
+    //     var position = node.position;
+    //
+    //     if(position){
+    //         // debugger
+    //         dom.setAttribute('data-line', position.start.line);
+    //         // dom.setAttribute('data-start-line', position.start.line);
+    //         // dom.setAttribute('data-end-line', position.end.line);
+    //     }
+    //
+    //
+    // }
 
 }
 

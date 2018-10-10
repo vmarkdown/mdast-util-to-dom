@@ -1,5 +1,7 @@
 'use strict';
 var hash = require('../util/hash');
+var getLines = require('../util/lines');
+
 
 var trim = require('trim');
 var decimal = require('is-decimal');
@@ -116,10 +118,12 @@ function paragraph(eat, value, silent) {
     now = eat.now();
     subvalue = trimTrailingLines(subvalue);
 
+    var origin = getLines(subvalue);
+
     return eat(subvalue)({
         type: 'paragraph',
         children: self.tokenizeInline(subvalue, now),
-        origin: subvalue,
-        hash: hash(subvalue)
+        origin: origin,
+        hash: hash(origin)
     });
 }

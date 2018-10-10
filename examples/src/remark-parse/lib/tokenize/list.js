@@ -8,6 +8,7 @@ var decimal = require('is-decimal');
 var getIndent = require('../util/get-indentation');
 var removeIndent = require('../util/remove-indentation');
 var interrupt = require('../util/interrupt');
+var hash = require('../util/hash');
 
 module.exports = list;
 
@@ -326,7 +327,9 @@ function list(eat, value, silent) {
         ordered: ordered,
         start: start,
         loose: null,
-        children: []
+        children: [],
+        origin: allLines,
+        hash: hash(allLines)
     });
 
     enterTop = self.enterList();

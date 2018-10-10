@@ -1,6 +1,7 @@
 'use strict';
 
 var whitespace = require('is-whitespace-character');
+var hash = require('../util/hash');
 
 module.exports = table;
 
@@ -22,6 +23,7 @@ var TABLE_ALIGN_RIGHT = 'right';
 var TABLE_ALIGN_NONE = null;
 
 function table(eat, value, silent) {
+
     var self = this;
     var index;
     var alignments;
@@ -62,6 +64,7 @@ function table(eat, value, silent) {
     lineCount = 0;
     length = value.length + 1;
     lines = [];
+    var origin = [];
 
     while (index < length) {
         lineIndex = value.indexOf(C_NEWLINE, index);
@@ -79,10 +82,12 @@ function table(eat, value, silent) {
             break;
         }
 
+        origin.push(value.slice(index, lineIndex));
         lines.push(value.slice(index, lineIndex));
         lineCount++;
         index = lineIndex + 1;
     }
+
 
     /* Parse the alignment row. */
     subvalue = lines.join(C_NEWLINE);
@@ -148,7 +153,9 @@ function table(eat, value, silent) {
     table = eat(subvalue).reset({
         type: 'table',
         align: align,
-        children: rows
+        children: rows,
+        origin: origin,
+        hash: hash(origin)
     });
 
     while (++position < lineCount) {

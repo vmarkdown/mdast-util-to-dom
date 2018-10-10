@@ -4,6 +4,10 @@ var trim = require('trim-trailing-lines');
 
 module.exports = fencedCode;
 
+var getLines = require('../util/lines');
+
+var hash = require('../util/hash');
+
 var C_NEWLINE = '\n';
 var C_TAB = '\t';
 var C_SPACE = ' ';
@@ -228,9 +232,13 @@ function fencedCode(eat, value, silent) {
 
     subvalue += content + closing;
 
+    var origin = getLines(subvalue);
+
     return eat(subvalue)({
         type: 'code',
         lang: flag || null,
-        value: trim(exdentedContent)
+        value: trim(exdentedContent),
+        origin: origin,
+        hash: hash(origin)
     });
 }

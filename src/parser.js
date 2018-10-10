@@ -17,16 +17,16 @@ Parser.prototype.parseNodes = function(nodes, parent) {
         tempNode && vnodes.push(tempNode);
     }
 
-    var hash = nodes.map(function (item) {
-        return item.hash;
-    }).reduce(function (a, b) {
-        var hash = [];
-        if(a) hash.push(a);
-        if(b) hash.push(b);
-        return hash.join('-');
-    });
-
-    parent.hash = util.hash(hash);
+    // var hash = nodes.map(function (item) {
+    //     return item.hash;
+    // }).reduce(function (a, b) {
+    //     var hash = [];
+    //     if(a) hash.push(a);
+    //     if(b) hash.push(b);
+    //     return hash.join('-');
+    // });
+    //
+    // parent.hash = util.hash(hash);
     // try {
     // }
     // catch (e) {
@@ -39,11 +39,11 @@ Parser.prototype.parseNodes = function(nodes, parent) {
 Parser.prototype.parseNode = function(node) {
     if(!node) return null;
 
-    if(node.value) {
-        node.hash = util.hash(node.value);
-    } else if(node.url) {
-        node.hash = util.hash(node.url);
-    }
+    // if(node.value) {
+    //     node.hash = util.hash(node.value);
+    // } else if(node.url) {
+    //     node.hash = util.hash(node.url);
+    // }
 
     var children = this.parseNodes(node.children, node);
     return renderer[node.type].apply(null, [h, node, children, this.options]);

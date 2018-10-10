@@ -2,6 +2,8 @@
 
 module.exports = thematicBreak;
 
+var hash = require('../util/hash');
+
 var C_NEWLINE = '\n';
 var C_TAB = '\t';
 var C_SPACE = ' ';
@@ -62,7 +64,11 @@ function thematicBreak(eat, value, silent) {
                 return true;
             }
 
-            return eat(subvalue)({type: 'thematicBreak'});
+            return eat(subvalue)({
+                type: 'thematicBreak',
+                origin: subvalue,
+                hash: hash(subvalue)
+            });
         } else {
             return;
         }

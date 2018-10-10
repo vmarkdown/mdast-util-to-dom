@@ -7,7 +7,7 @@ const parse = require('./remark-parse/index');
 const processor = unified()
     .use(parse, {});
 
-const md = require('./test.md');
+const md = require('./demo.md');
 
 console.time('parse');
 const mdast = processor.parse(md);
@@ -90,12 +90,50 @@ function removeDom(line) {
     findEl.remove();
 }
 
+function getLines (text) {
+    var BREAK_LINE_REGEXP = /\r\n|\r|\n/g;
+    return text.split(BREAK_LINE_REGEXP);
+}
 
-var hash = util.hash('代码块');
+(function () {
+    const line = 123;
 
-console.log(hash);
 
-console.log(findDomByHash(hash));
+
+    let child = findNode(mdast, { line: line, column: 1 });
+
+    let node = child;
+    if(child.parent &&
+        (child.parent.type === 'list' || child.parent.type === 'table')
+    ) {
+        node = child.parent;
+    }
+    let position = node.position;
+    let from = position.start.line;
+    let to = position.end.line;
+
+    // debugger
+
+    const lines = getLines(md);
+
+    const block = lines.slice(from-1, to);
+
+    // if(node.type === 'code') {
+    //     debugger
+    // }
+
+    var hash = util.hash(block);
+
+    console.log(hash);
+
+    var d = findDomByHash(hash);
+    console.log(d);
+
+    d.addClass('active');
+
+
+})();
+
 
 // console.log(findDom(9));
 
